@@ -15,20 +15,18 @@
 
     canvas {
       border: 1px solid #444;
-      margin-top: -10px;
-      size: 100;
     }
 
     input {
-      padding: 10px;
-      font-size: 16px;
-      height: 30px;
+      padding: 0.5vw;
+      font-size: 1vw;
+      height: 2vw;
     }
 
     button {
-      padding: 10px;
-      font-size: 16px;
-      height: 50px;
+      padding: 0.5vw;
+      font-size: 1vw;
+      height: 3vw;
     }
 
     input, button, #select {
@@ -42,11 +40,9 @@
 </head>
 <body>
   <h1>교울 썸네일 생성기</h1>
-  <div>
-    <input type="text" id="textInput" placeholder="YYYY.MM.DD." />
-    <button onclick="drawText()">생성</button>
-    <button onclick="downloadImage()">다운로드</button>
-  </div>
+  <input type="text" id="textInput" placeholder="YYYY.MM.DD." />
+  <button onclick="drawText()">생성</button>
+  <button onclick="downloadImage()">다운로드</button>
   <div class="dropdown"></div>
     <div class="styled-select">
       <select id="select" name="select">
