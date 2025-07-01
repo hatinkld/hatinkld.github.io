@@ -42,6 +42,12 @@
       border-radius: 5px;
       margin-left: 1px;
     }
+
+    #select, #bgselect {
+      padding: 4px;
+      height: 30px;
+    }
+
   </style>
 </head>
 <body>
@@ -49,31 +55,12 @@
   <div>
     <input type="text" id="textInput" placeholder="YYYY.MM.DD." />
     <button onclick="drawText()">생성</button>
-    <button onclick="autoDraw()">자동생성</button>
     <button onclick="downloadImage()">다운로드</button>
   </div>
-  <div class="dropdown"></div>
+  <div class="color-picker"></div>
     <div class="styled-select">
-      <select id="select" name="select">
-        <option value="#FF0000">Red</option>
-        <option value="#00FF00">Green</option>
-        <option value="#0000FF">Blue</option>
-        <option value="#FFFF00">Yellow</option>
-        <option value="#00FFFF">Cyan</option>
-        <option value="#FF00FF">Magenta</option>
-        <option value="#FFFFFF">White</option>
-        <option value="#000000">Black</option>
-      </select>
-      <select id="bgselect" name="bgselect">
-        <option value="#000000">Black</option>
-        <option value="#FF0000">Red</option>
-        <option value="#00FF00">Green</option>
-        <option value="#0000FF">Blue</option>
-        <option value="#FFFF00">Yellow</option>
-        <option value="#00FFFF">Cyan</option>
-        <option value="#FF00FF">Magenta</option>
-        <option value="#FFFFFF">White</option>
-      </select>
+      <input type="color" id="select" value="#FF0000">
+      <input type="color" id="bgselect" value="#000000">
     </div>
   <br>
   <canvas id="textCanvas" width="1280" height="720"></canvas>
@@ -82,18 +69,14 @@
     window.onload = () => {
       // 폰트도 모두 로딩된 시점
       drawText(); // 첫 로딩 시 자동으로 그리기 등 실행
-    };
-
-    // 내일 날짜를 YYYY.MM.DD. 형식으로 입력
-    function autoDraw () {
+      // 내일 날짜를 YYYY.MM.DD. 형식으로 입력
       const today = new Date();
       today.setDate(today.getDate() + 1);
       const yyyy = today.getFullYear();
       const mm = String(today.getMonth() + 1).padStart(2, '0');
       const dd = String(today.getDate()).padStart(2, '0');
       document.getElementById('textInput').value = `${yyyy}.${mm}.${dd}.`;
-      drawText();
-    }
+    };
 
     function drawText() {
       const canvas = document.getElementById('textCanvas');
@@ -120,7 +103,9 @@
     function downloadImage() {
       const canvas = document.getElementById('textCanvas');
       const link = document.createElement('a');
-      link.download = 'text_image.png';
+      const dateText = document.getElementById('textInput').value.trim();
+      const cleanDate = dateText.replace(/\./g, '').replace(/\s/g, '').substr(4) || 'thumbnail';
+      link.download = `${cleanDate}.png`;
       link.href = canvas.toDataURL();
       link.click();
     }
